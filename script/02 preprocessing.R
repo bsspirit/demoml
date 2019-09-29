@@ -55,17 +55,17 @@ library(smbinning)
 df$Species <- as.numeric(df$Species) - 1
 result <- smbinning(df, 'Species', 'Sepal_Width')
 result$cuts
-###ÉèÖÃ2*2µÄ»æÍ¼ÑùÊ½###
+###è®¾ç½®2*2çš„ç»˜å›¾æ ·å¼###
 par(mfrow=c(2,2))
-###ÔÚµÚÒ»·ùÍ¼ÖÐ»æÖÆÔÚfgoodµÄÌõ¼þÏÂµÄcbs1µÄÏäÍ¼###
+###åœ¨ç¬¬ä¸€å¹…å›¾ä¸­ç»˜åˆ¶åœ¨fgoodçš„æ¡ä»¶ä¸‹çš„cbs1çš„ç®±å›¾###
 boxplot(df$Sepal_Width ~ df$Species,
         horizontal=TRUE, frame=FALSE, col="lightgray",main="Distribution")
 mtext("Credit Score",3)
-###µÚ¶þ·ùÍ¼ÖÐ»æÖÆ·ÖÏäºóµÄ·Ö²¼Í¼###
+###ç¬¬äºŒå¹…å›¾ä¸­ç»˜åˆ¶åˆ†ç®±åŽçš„åˆ†å¸ƒå›¾###
 smbinning.plot(result,option="dist",sub="Credit Score")
-###µÚÈý·ùÍ¼ÖÐ»æÖÆ·ÖÏäºóµÄ»µÑù±¾ÂÊ###
+###ç¬¬ä¸‰å¹…å›¾ä¸­ç»˜åˆ¶åˆ†ç®±åŽçš„åæ ·æœ¬çŽ‡###
 smbinning.plot(result,option="badrate",sub="Credit Score")
-###µÚËÄ·ùÍ¼ÖÐ»æÖÆ·ÖÏäºóWOEÖµ###
+###ç¬¬å››å¹…å›¾ä¸­ç»˜åˆ¶åˆ†ç®±åŽWOEå€¼###
 smbinning.plot(result,option="WoE",sub="Credit Score")
 par(mfrow=c(1,1))
 

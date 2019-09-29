@@ -49,10 +49,10 @@ plot_roc(model_logit$fitted.values, df$Species)
 library(rpart)
 library(rpart.plot)
 model_dtree <- rpart(Species ~ ., data = df, method = 'class')
-rpart.plot(model_dtree,branch=1,type=2, fallen.leaves=T,cex=0.8, sub="¼ôÖ¦Ç°")
+rpart.plot(model_dtree,branch=1,type=2, fallen.leaves=T,cex=0.8, sub="??Ö¦Ç°")
 model_dtree <- prune(model_dtree,
                      cp=model_dtree$cptable[which.min(model_dtree$cptable[,"xerror"]),"CP"])
-rpart.plot(model_dtree,branch=1,type=4, fallen.leaves=T,cex=0.8, sub="¼ôÖ¦ºó")
+rpart.plot(model_dtree,branch=1,type=4, fallen.leaves=T,cex=0.8, sub="??Ö¦??")
 
 pred <- predict(model_dtree, df[,1:4])[,2]
 plot_roc(pred, df$Species)
@@ -60,9 +60,11 @@ plot_roc(pred, df$Species)
 # random forest
 library(randomForest)
 model_rf <- randomForest(as.factor(Species) ~ ., data = df,
-                         ntree = 50, importance = TRUE)
+                         ntree = 12, importance = TRUE)
 model_rf$confusion
-f1_score(model_rf$predicted, df$Species)
+pred <- predict(model_rf, df[,1:4])
+f1_score(pred, df$Species)
+
 
 fitControl <- trainControl(method = "repeatedcv",
                            number = 5, repeats = 2, search = "random")
@@ -72,7 +74,7 @@ model_rf <- train(as.factor(Species) ~ ., data = df, method = "rf",
 # xgboost
 library(xgboost)
 model_xgboost <- xgboost(data = as.matrix(df[,1:4]), label = df[,5],
-                         max.depth = 2, eta = 1, nround = 3,
+                         max.depth = 1, eta = 0.2425924, nround = 284,
                          objective = "binary:logistic")
 
 pred <- predict(model_xgboost, as.matrix(df[,1:4]))
